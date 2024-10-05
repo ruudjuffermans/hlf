@@ -1,0 +1,11 @@
+# Binaries
+bin/*
+
+# Genesis Channel Blocks & Transactions for Setup
+*.tx
+*.block
+
+artifacts/crypto/*
+!artifacts/crypto/
+
+vendor/
