@@ -1,5 +1,6 @@
 # Binaries
 bin/*
+!bin
 
 # Genesis Channel Blocks & Transactions for Setup
 *.tx
