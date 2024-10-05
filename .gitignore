@@ -1,6 +1,6 @@
 # Binaries
 bin/*
-!bin
+!bin/.gitkeep
 
 # Genesis Channel Blocks & Transactions for Setup
 *.tx
