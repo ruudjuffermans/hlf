@@ -1,3 +1,5 @@
+pushd ..
+
 export CORE_PEER_TLS_ENABLED=true
 export ORDERER_CA=${PWD}/artifacts/crypto/ordererOrganizations/nlr.nl/orderers/orderer.nlr.nl/msp/tlscacerts/tlsca.nlr.nl-cert.pem
 export PEER0_ORG1_CA=${PWD}/artifacts/crypto/peerOrganizations/org1.nlr.nl/peers/peer0.org1.nlr.nl/tls/ca.crt
@@ -76,6 +78,7 @@ CC_RUNTIME_LANGUAGE="golang"
 VERSION="2"
 CC_SRC_PATH="./chaincode/car"
 CC_NAME="car"
+SEQUENCE="1"
 
 packageChaincode() {
     rm -rf ${CC_NAME}.tar.gz
@@ -143,6 +146,7 @@ getBlock() {
 # --signature-policy "OR('Org1MSP.member','Org2MSP.member')" \
 
 approveForMyOrg1() {
+    queryInstalled
     setGlobalsForPeer0Org1
     # set -x
     peer lifecycle chaincode approveformyorg -o localhost:7050 \
@@ -150,7 +154,7 @@ approveForMyOrg1() {
         --collections-config $PRIVATE_DATA_CONFIG \
         --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
         --init-required --package-id ${PACKAGE_ID} \
-        --sequence "$1"
+        --sequence $SEQUENCE
     # set +x
 
     echo "===================== chaincode approved from org 1 ===================== "
@@ -158,6 +162,7 @@ approveForMyOrg1() {
 }
 
 approveForMyOrg2() {
+    queryInstalled
     setGlobalsForPeer0Org2
 
     peer lifecycle chaincode approveformyorg -o localhost:7050 \
@@ -165,12 +170,13 @@ approveForMyOrg2() {
         --collections-config $PRIVATE_DATA_CONFIG \
         --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
         --init-required --package-id ${PACKAGE_ID} \
-        --sequence "$1"
+        --sequence $SEQUENCE
 
     echo "===================== chaincode approved from org 2 ===================== "
 }
 
 approveForMyOrg3() {
+    queryInstalled
     setGlobalsForPeer0Org3
 
     peer lifecycle chaincode approveformyorg -o localhost:7050 \
@@ -178,7 +184,7 @@ approveForMyOrg3() {
         --collections-config $PRIVATE_DATA_CONFIG \
         --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
         --init-required --package-id ${PACKAGE_ID} \
-        --sequence "$1"
+        --sequence $SEQUENCE
 
     echo "===================== chaincode approved from org 2 ===================== "
 }
@@ -284,14 +290,10 @@ chaincodeQuery() {
 # packageChaincode
 # installChaincode
 
-# queryInstalled
-# approveForMyOrg1 1
 
-# queryInstalled
-# approveForMyOrg2 1
-
-# queryInstalled
-# approveForMyOrg3 1
+# approveForMyOrg1
+# approveForMyOrg2
+# approveForMyOrg3
 
 # checkCommitReadyness
 
@@ -300,6 +302,9 @@ chaincodeQuery() {
 
 # chaincodeInvokeInit
 # sleep 5
-chaincodeInvoke
+# chaincodeInvoke
 # sleep 3
-# chaincodeQuery
+chaincodeQuery
+
+
+popd

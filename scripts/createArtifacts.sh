@@ -1,4 +1,4 @@
-pushd ./artifacts
+pushd ../artifacts
 
 chmod -R 0755 ./crypto
 rm system.block channel1.tx Org1MSPanchors.tx Org2MSPanchors.tx Org3MSPanchors.tx

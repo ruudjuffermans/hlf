@@ -1,3 +1,4 @@
+pushd ..
 export CORE_PEER_TLS_ENABLED=true
 export ORDERER_CA=${PWD}/artifacts/crypto/ordererOrganizations/nlr.nl/orderers/orderer.nlr.nl/msp/tlscacerts/tlsca.nlr.nl-cert.pem
 export PEER0_ORG1_CA=${PWD}/artifacts/crypto/peerOrganizations/org1.nlr.nl/peers/peer0.org1.nlr.nl/tls/ca.crt
@@ -9,6 +10,7 @@ export PEER1_ORG3_CA=${PWD}/artifacts/crypto/peerOrganizations/org3.nlr.nl/peers
 export FABRIC_CFG_PATH=${PWD}/artifacts/config/
 
 export CHANNEL_NAME=channel1
+
 
 # setGlobalsForOrderer(){
 #     export CORE_PEER_LOCALMSPID="OrdererMSP"
@@ -116,3 +118,5 @@ updateAnchorPeers(){
 createChannel
 joinChannel
 updateAnchorPeers
+
+popd
