@@ -265,7 +265,7 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=Org1MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=supplychain_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=hlf_test
 
       - CORE_PEER_ID=peer0.org1.nlr.nl
       - CORE_PEER_ADDRESS=peer0.org1.nlr.nl:7051
@@ -307,7 +307,7 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=Org1MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=supplychain_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=hlf_test
 
       - CORE_PEER_ID=peer1.org1.nlr.nl
       - CORE_PEER_ADDRESS=peer1.org1.nlr.nl:7053
@@ -349,7 +349,7 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=Org2MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=supplychain_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=hlf_test
 
       - CORE_PEER_ID=peer0.org2.nlr.nl
       - CORE_PEER_ADDRESS=peer0.org2.nlr.nl:8051
@@ -391,7 +391,7 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=Org2MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=supplychain_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=hlf_test
 
       - CORE_PEER_ID=peer1.org2.nlr.nl
       - CORE_PEER_ADDRESS=peer1.org2.nlr.nl:8053
@@ -434,7 +434,7 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=Org3MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=supplychain_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=hlf_test
 
       - CORE_PEER_ID=peer0.org3.nlr.nl
       - CORE_PEER_ADDRESS=peer0.org3.nlr.nl:9051
@@ -476,7 +476,7 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=Org3MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=supplychain_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=hlf_test
 
       - CORE_PEER_ID=peer1.org3.nlr.nl
       - CORE_PEER_ADDRESS=peer1.org3.nlr.nl:9053

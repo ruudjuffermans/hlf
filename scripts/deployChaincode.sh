@@ -12,7 +12,7 @@ export FABRIC_CFG_PATH=${PWD}/artifacts/config/
 
 export PRIVATE_DATA_CONFIG=${PWD}/artifacts/private-data/collections_config.json
 
-export CHANNEL_NAME=channel1
+export CHANNEL_NAME=milsat-channel
 
 setGlobalsForOrderer() {
     export CORE_PEER_LOCALMSPID="OrdererMSP"
@@ -66,18 +66,18 @@ setGlobalsForPeer1Org3() {
 
 presetup() {
     echo Vendoring Go dependencies ...
-    pushd ./chaincode/car
+    pushd ./chaincode/milsat
     GO111MODULE=on go mod vendor
     popd
     echo Finished vendoring Go dependencies
 }
 
 
-CHANNEL_NAME="channel1"
+CHANNEL_NAME="milsat-channel"
 CC_RUNTIME_LANGUAGE="golang"
 VERSION="2"
-CC_SRC_PATH="./chaincode/car"
-CC_NAME="car"
+CC_SRC_PATH="./chaincode/milsat"
+CC_NAME="milsat"
 SEQUENCE="1"
 
 packageChaincode() {
@@ -127,9 +127,6 @@ queryInstalled() {
 
 getBlock() {
     setGlobalsForPeer0Org1
-    # peer channel fetch 10 -c channel1 -o localhost:7050 \
-    #     --ordererTLSHostnameOverride orderer.nlr.nl --tls \
-    #     --cafile $ORDERER_CA
 
     peer channel getinfo  -c $CHANNEL_NAME -o localhost:7050 \
         --ordererTLSHostnameOverride orderer.nlr.nl --tls \
@@ -235,25 +232,25 @@ chaincodeInvokeInit() {
 
 chaincodeInvoke() {
     setGlobalsForPeer0Org1
-    # peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.nlr.nl \
-    # --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} \
-    # --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
-    # --peerAddresses localhost:8051 --tlsRootCertFiles $PEER0_ORG2_CA  \
-    # --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG3_CA  \
-    # -c '{"function":"initLedger","Args":[]}'
+    peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.nlr.nl \
+    --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} \
+    --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
+    --peerAddresses localhost:8051 --tlsRootCertFiles $PEER0_ORG2_CA  \
+    --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG3_CA  \
+    -c '{"function":"initLedger","Args":[]}'
 
     # setGlobalsForPeer0Org1
 
     ## Create Car
-    peer chaincode invoke -o localhost:7050 \
-        --ordererTLSHostnameOverride orderer.nlr.nl \
-        --tls $CORE_PEER_TLS_ENABLED \
-        --cafile $ORDERER_CA \
-        -C $CHANNEL_NAME -n $CC_NAME  \
-        --peerAddresses localhost:7051 \
-        --tlsRootCertFiles $PEER0_ORG1_CA \
-        --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA   \
-        -c '{"function":"initLedger","Args":[]}'
+    # peer chaincode invoke -o localhost:7050 \
+    #     --ordererTLSHostnameOverride orderer.nlr.nl \
+    #     --tls $CORE_PEER_TLS_ENABLED \
+    #     --cafile $ORDERER_CA \
+    #     -C $CHANNEL_NAME -n $CC_NAME  \
+    #     --peerAddresses localhost:7051 \
+    #     --tlsRootCertFiles $PEER0_ORG1_CA \
+    #     --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA   \
+    #     -c '{"function":"initLedger","Args":[]}'
 
     ## Add private data
     # export CAR=$(echo -n "{\"key\":\"1111\", \"make\":\"Tesla\",\"model\":\"Tesla A1\",\"color\":\"White\",\"owner\":\"pavan\",\"price\":\"10000\"}" | base64 | tr -d \\n)
@@ -286,25 +283,26 @@ chaincodeQuery() {
 
 # Run this function if you add any new dependency in chaincode
 
-# presetup
-# packageChaincode
-# installChaincode
+presetup
+packageChaincode
+installChaincode
 
+sleep 5
 
-# approveForMyOrg1
-# approveForMyOrg2
-# approveForMyOrg3
+approveForMyOrg1
+approveForMyOrg2
+approveForMyOrg3
 
-# checkCommitReadyness
+checkCommitReadyness
 
-# commitChaincodeDefination
-# queryCommitted
+commitChaincodeDefination
+queryCommitted
 
-# chaincodeInvokeInit
-# sleep 5
-# chaincodeInvoke
+chaincodeInvokeInit
+sleep 5
+chaincodeInvoke
 # sleep 3
-chaincodeQuery
+# chaincodeQuery
 
 
 popd

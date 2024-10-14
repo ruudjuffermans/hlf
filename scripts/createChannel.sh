@@ -9,7 +9,7 @@ export PEER1_ORG2_CA=${PWD}/artifacts/crypto/peerOrganizations/org2.nlr.nl/peers
 export PEER1_ORG3_CA=${PWD}/artifacts/crypto/peerOrganizations/org3.nlr.nl/peers/peer1.org3.nlr.nl/tls/ca.crt
 export FABRIC_CFG_PATH=${PWD}/artifacts/config/
 
-export CHANNEL_NAME=channel1
+export CHANNEL_NAME=milsat-channel
 
 
 # setGlobalsForOrderer(){
